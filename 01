@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the sample dataset from World Bank
+url = 'https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=csv'
+data = pd.read_csv(url, skiprows=4)
+
+# Sample Dataset: World Bank population data
+# We'll use the '2021' column to visualize the distribution of population in different countries for the year 2021
+
+# Data Preprocessing
+data = data[['Country Name', '2021']]
+data = data.dropna()
+data = data.rename(columns={'Country Name': 'Country', '2021': 'Population'})
+
+# Plotting a histogram of population distribution
+plt.figure(figsize=(10, 6))
+plt.hist(data['Population'], bins=50, color='skyblue', edgecolor='black')
+plt.title('Population Distribution by Country (2021)')
+plt.xlabel('Population')
+plt.ylabel('Number of Countries')
+plt.yscale('log')  # Using log scale for better visualization of distribution
+plt.grid(axis='y')
+
+plt.show()
